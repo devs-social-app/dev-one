@@ -34,17 +34,15 @@ router.post('/register', (req, res) => {
       errors.email = 'Email already exists'
       return res.status(400).json(errors)
     } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: '200', // Size
-        r: 'pg', // Rating
-        d: 'mm' // Default
-      })
+      const avatar = "https://forum.appzillon.com/styles/comboot/theme/images/default_avatar.jpg"
 
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
         avatar,
-        password: req.body.password
+        password: req.body.password,
+        follow:[],
+        followers:[]
       })
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -97,7 +95,7 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           // User Matched
-          const payload = { id: user.id, name: user.name, avatar: user.avatar } // Create JWT Payload
+          const payload = { id: user.id, name: user.name, avatar: user.avatar,followers:user.followers,follow:user.follow }  // Create JWT Payload
 
           // Sign Token
           jwt.sign(payload, keys.secretOrkey, { expiresIn: 3600 }, (err, token) => {
@@ -117,7 +115,7 @@ router.post('/login', (req, res) => {
 router.get('/get_user/:id',(req,res)=>{
   User.findOne({_id:req.params.id})
       .then(user=>{
-        const payload = { id: user.id, name: user.name, avatar: user.avatar } // Create JWT Payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar,followers:user.followers,follow:user.follow }  // Create JWT Payload
 
           // Sign Token
           jwt.sign(payload, keys.secretOrkey, { expiresIn: 3600 }, (err, token) => {
@@ -138,5 +136,44 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     email: req.user.email
   })
 })
+router.post('/follow',(req,res)=>{
+  User.findOneAndUpdate({_id:req.body.user_id},
+    {
+      $push:{follow:{id:req.body.dev_id,isNotBlockedMe:true}}
+    }).then(user=>{
+      User.findOneAndUpdate({_id:req.body.dev_id},{
+        $push:{followers:{id:req.body.user_id,isNotBlocked:true}}
+      }).then(result=>{
+        res.json(user)
+      })
+    })
+  
+})
+router.post('/unfollow',(req,res)=>{
+  User.findOneAndUpdate({_id:req.body.user_id},
+    {
+      $pull:{follow:{id:req.body.dev_id}}
+    }).then(user=>{
+      User.findOneAndUpdate({_id:req.body.dev_id},{
+        $pull:{followers:{id:req.body.user_id}}
+      }).then(result=>{
+        res.json(user)
+      })
+    })
+  
+})
+router.post('/block',(req,res)=>{
+  User.findOneAndUpdate({_id:req.body.dev_id},
+    {
+      $pull:{follow:{id:req.body.user_id}}
+    }).then(result=>{
 
+      User.findOneAndUpdate({_id:req.body.user_id},{
+        $pull:{followers:{id:req.body.dev_id}}
+      }).then(user=>{
+        res.json(user)
+      })
+    })
+  
+})
 module.exports = router

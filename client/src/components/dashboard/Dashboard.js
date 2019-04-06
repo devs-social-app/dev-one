@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
+import { getCurrentProfile, deleteAccount,getProfileByHandle} from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 import ProfileActions from './ProfileActions';
 import Experience from './Experience';
@@ -11,16 +11,19 @@ import Education from './Education';
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
+    
   }
 
   onDeleteClick(e) {
     this.props.deleteAccount();
   }
-
+  getTheUserProfile =(id)=>{
+    this.props.getProfileByHandle(id)
+    window.location.open('/profile/'+id)
+  }
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
-
     let dashboardContent;
 
     if (profile === null || loading) {
@@ -28,10 +31,11 @@ class Dashboard extends Component {
     } else {
       // Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
+        
         dashboardContent = (
-          <div >
+          <div className="mb-5" style={{"color":"white"}}>
             <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.user._id}`}>{user.name}</Link>
+              Welcome <Link onClick={()=>this.getTheUserProfile(user.id)} to={`/profile/${profile.user._id}`}>{user.name}</Link>
             </p>
             <ProfileActions />
             <Experience experience={profile.experience} />
@@ -60,7 +64,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="dashboard">
+      <div className="dashboard mb-10" style={{"color":"white","marginBottom":"100px"}}>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -77,6 +81,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
+  getProfileByHandle:PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -86,6 +91,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount, getProfileByHandle})(
   Dashboard
 );

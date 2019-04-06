@@ -20,14 +20,14 @@ class Posts extends Component {
           y.appendChild(i)
 
           i.onclick= function(){
-            if (x.className === "hidden") {
-              x.setAttribute("class", "box");
+            if (x.style.display === "none") {
+              x.style.display="block"
             } else {
-              x.setAttribute("class" ,"hidden");
+              x.style.display="none"
             }
           }
 
-          if(x.className === "form-group hidden"){
+          if(x.style.display==="none"){
             i.setAttribute("class", "fas fa-caret-up");
           }else{
             i.setAttribute("class", "fas fa-caret-left");
@@ -48,7 +48,7 @@ class Posts extends Component {
     }
 
     return (
-      <div className="feed">
+      <div className="feed mt-3" style={{"marginBottom":"50px"}}>
         <div className="container">
           <div className="row">
             <div className="col-md-12">

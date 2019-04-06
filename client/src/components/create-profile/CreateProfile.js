@@ -15,8 +15,9 @@ class CreateProfile extends Component {
       displaySocialInputs: false,
       handle: '',
       company: '',
-      website: '',
+      website: 'http://www.',
       location: '',
+      phone:'',
       status: '',
       skills: '',
       githubusername: '',
@@ -39,7 +40,7 @@ class CreateProfile extends Component {
     }
   }
 
-  onSubmit(e) {
+   onSubmit(e) {
     e.preventDefault();
 
     const profileData = {
@@ -47,6 +48,7 @@ class CreateProfile extends Component {
       company: this.state.company,
       website: this.state.website,
       location: this.state.location,
+      phone:this.state.phone,
       status: this.state.status,
       skills: this.state.skills,
       githubusername: this.state.githubusername,
@@ -62,7 +64,9 @@ class CreateProfile extends Component {
   }
 
   onChange(e) {
+
     this.setState({ [e.target.name]: e.target.value });
+    
   }
 
   render() {
@@ -135,12 +139,12 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <div className="create-profile">
+      <div className="create-profile" style={{"marginBottom":"100px","color":"white"}}>
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">
+              <p style={{"color":"white"}} className="lead text-center">
                 Let's get some information to make your profile stand out
               </p>
               <small className="d-block pb-3">* = required fields</small>
@@ -187,6 +191,13 @@ class CreateProfile extends Component {
                   info="City or city & state suggested (eg. Boston, MA)"
                 />
                 <TextFieldGroup
+                  placeholder="Phone number"
+                  name="phone"
+                  value={this.state.phone}
+                  onChange={this.onChange}
+                  info="Insert your phone number"
+                />
+                <TextFieldGroup
                   placeholder="* Skills"
                   name="skills"
                   value={this.state.skills}
@@ -224,7 +235,7 @@ class CreateProfile extends Component {
                   >
                     Add Social Network Links
                   </button>
-                  <span className="text-muted">Optional</span>
+                  <span className="text-muted ml-3">Optional</span>
                 </div>
                 {socialInputs}
                 <input
@@ -243,7 +254,7 @@ class CreateProfile extends Component {
 
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

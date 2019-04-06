@@ -16,22 +16,22 @@ class Landing extends Component {
 			<div id="wrapper" style={landing}>
 				<div id="left">
 					<div id="signin">
-						<div class="logo">
+						<div className="logo">
 							<h1>
-								<i class="fab fa-connectdevelop" /> DevConnector
+								<i className="fab fa-connectdevelop" /> WD-Connector
 							</h1>
 						</div>
 						<Link to="/login" className="secondary-btn">
 							Sign In
 						</Link>
-						<div class="links">
+						<div className="links">
 							<a href="#">Forgot Password</a>
 							<a href="#">Sign in with company or school</a>
 						</div>
-						<div class="or">
-							<hr class="bar" />
+						<div className="or">
+							<hr className="bar" />
 							<span>OR</span>
-							<hr class="bar" />
+							<hr className="bar" />
 						</div>
 						<Link to="/register" className="secondary-btn">
 							Sign Up
@@ -46,11 +46,11 @@ class Landing extends Component {
 				</div>
 				<div id="right">
 					<div id="showcase">
-						<div class="showcase-content">
-							<h1 class="showcase-text">
+						<div className="showcase-content">
+							<h1 className="showcase-text">
 								We bring developers <strong>together</strong>
 							</h1>
-							<a href="#" class="secondary-btn">
+							<a href="/profiles" className="secondary-btn">
 								See profiles of all developers
 							</a>
 						</div>

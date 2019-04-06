@@ -18,6 +18,7 @@ class CreateProfile extends Component {
       company: '',
       website: '',
       location: '',
+      phone:'',
       status: '',
       skills: '',
       githubusername: '',
@@ -53,6 +54,7 @@ class CreateProfile extends Component {
       profile.company = !isEmpty(profile.company) ? profile.company : '';
       profile.website = !isEmpty(profile.website) ? profile.website : '';
       profile.location = !isEmpty(profile.location) ? profile.location : '';
+      profile.phone = !isEmpty(profile.phone) ? profile.phone : '';
       profile.githubusername = !isEmpty(profile.githubusername)
         ? profile.githubusername
         : '';
@@ -80,6 +82,7 @@ class CreateProfile extends Component {
         company: profile.company,
         website: profile.website,
         location: profile.location,
+        phone:profile.phone,
         status: profile.status,
         skills: skillsCSV,
         githubusername: profile.githubusername,
@@ -101,6 +104,7 @@ class CreateProfile extends Component {
       company: this.state.company,
       website: this.state.website,
       location: this.state.location,
+      phone:this.state.phone,
       status: this.state.status,
       skills: this.state.skills,
       githubusername: this.state.githubusername,
@@ -189,13 +193,11 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <div className="create-profile">
+      <div className="create-profile" style={{"marginBottom":"100px","color":"white"}}>
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
-              </Link>
+              
               <h1 className="display-4 text-center">Edit Profile</h1>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
@@ -241,6 +243,13 @@ class CreateProfile extends Component {
                   info="City or city & state suggested (eg. Boston, MA)"
                 />
                 <TextFieldGroup
+                  placeholder="Phone number"
+                  name="phone"
+                  value={this.state.phone}
+                  onChange={this.onChange}
+                  info="Insert your phone number"
+                />
+                <TextFieldGroup
                   placeholder="* Skills"
                   name="skills"
                   value={this.state.skills}
@@ -278,7 +287,7 @@ class CreateProfile extends Component {
                   >
                     Add Social Network Links
                   </button>
-                  <span className="text-muted">Optional</span>
+                  <span className="text-muted ml-3">Optional</span>
                 </div>
                 {socialInputs}
                 <input

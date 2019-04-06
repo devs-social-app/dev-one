@@ -10,6 +10,7 @@ class Navbar extends Component {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
+    window.location.replace('/')
   }
 
   render() {
@@ -37,7 +38,6 @@ class Navbar extends Component {
               src={user.avatar}
               alt={user.name}
               style={{ width: '25px', marginRight: '5px' }}
-              title="You must have a Gravatar connected to your email to display an image"
             />{' '}
             Logout
           </a>
@@ -61,10 +61,10 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            DevConnector
+            WD-Connector
           </Link>
           <button
             className="navbar-toggler"

@@ -63,13 +63,10 @@ class AddEducation extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="add-education">
+      <div className="add-education" style={{"marginBottom":"100px","color":"white"}} >
         <div className="container">
           <div className="row">
-            <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
-              </Link>
+            <div className="col-md-8 m-auto" >
               <h1 className="display-4 text-center">Add Education</h1>
               <p className="lead text-center">
                 Add any school, bootcamp, etc that you have attended

@@ -21,7 +21,15 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  followers:[{
+    id: String,
+    isNotBlocked:Boolean
+  }],
+  follow:[{
+    id:String,
+    isNotBlockedMe:Boolean
+  }]
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
