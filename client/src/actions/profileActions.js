@@ -9,6 +9,7 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
 } from './types';
+import { decode } from 'punycode';
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
@@ -201,4 +202,70 @@ export const updateProfilePic = user_obj => dispatch =>{
             
           })
 }
+export const follow_developer=(user,dev)=>dispatch=>{
+  let dat_obj={
+    user_id:user,
+    dev_id:dev
+  }
+  axios.post('/api/users/follow',dat_obj)
+  .then(res =>{
+    axios.get('/api/users/get_user/'+user)
+    .then(res=>{
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    
+  })
 
+}
+export const unfollow_developer=(user,dev)=>dispatch=>{
+  let dat_obj={
+    user_id:user,
+    dev_id:dev
+  }
+  axios.post('/api/users/unfollow',dat_obj)
+  .then(res =>{
+    axios.get('/api/users/get_user/'+user)
+    .then(res=>{
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    
+  })
+}
+export const block_dev=(user,dev)=>dispatch=>{
+  let dat_obj={
+    user_id:user,
+    dev_id:dev
+  }
+  axios.post('/api/users/block',dat_obj)
+  .then(res =>{
+    axios.get('/api/users/get_user/'+user)
+    .then(res=>{
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    
+  })
+}

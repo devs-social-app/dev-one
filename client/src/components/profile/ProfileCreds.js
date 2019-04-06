@@ -1,52 +1,38 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
-
+import uniqid from 'uniqid'
 class ProfileCreds extends Component {
   render() {
-    const { experience, education } = this.props;
+    const { experience, education, bio } = this.props;
+    let expItems = experience.map(exp => (
 
-    const expItems = experience.map(exp => (
-      <li key={exp._id} className="list-group-item">
-        <h4>{exp.company}</h4>
-        <p>
-          <Moment format="YYYY/MM/DD">{exp.from}</Moment> -
-          {exp.to === null ? (
-            ' Now'
+      <div key={exp._id} className="w3-container">
+        <h5 className="w3-opacity"><b>{exp.title}</b></h5>
+        <h6 className="w3-text-grey"><i className="fa fa-calendar fa-fw w3-margin-right"></i><Moment format="YYYY/MM/DD">{exp.from}</Moment>- {exp.to === null ? (
+            <span className="w3-tag w3-black w3-round">Current</span>
           ) : (
             <Moment format="YYYY/MM/DD">{exp.to}</Moment>
-          )}
-        </p>
-        <p>
-          <strong>Position:</strong> {exp.title}
-        </p>
-        <p>
-          {exp.location === '' ? null : (
-            <span>
-              <strong>Location: </strong> {exp.location}
-            </span>
-          )}
-        </p>
-        <p>
-          {exp.description === '' ? null : (
-            <span>
-              <strong>Description: </strong> {exp.description}
-            </span>
-          )}
-        </p>
-      </li>
+          )}</h6>
+          <div>
+          <strong>Description: </strong>
+          {exp.description === '' ? null :(exp.description.split('\n')).map (line=>(
+          <p key={uniqid()}>{line}</p>
+          ))}
+          </div>
+        
+        <hr></hr>
+      </div>
     ));
-
+          
     const eduItems = education.map(edu => (
-      <li key={edu._id} className="list-group-item">
-        <h4>{edu.school}</h4>
-        <p>
-          <Moment format="YYYY/MM/DD">{edu.from}</Moment> -
+      <div key={edu._id} className="w3-container">
+        <h5 className="w3-opacity"><b>{edu.school}</b></h5>
+        <h6 className="w3-text-grey"><i className="fa fa-calendar fa-fw w3-margin-right"></i><Moment format="YYYY/MM/DD">{edu.from}</Moment> -
           {edu.to === null ? (
-            ' Now'
+            <span className="w3-tag w3-black w3-round">Current</span>
           ) : (
             <Moment format="YYYY/MM/DD">{edu.to}</Moment>
-          )}
-        </p>
+          )}</h6>
         <p>
           <strong>Degree:</strong> {edu.degree}
         </p>
@@ -60,26 +46,38 @@ class ProfileCreds extends Component {
             </span>
           )}
         </p>
-      </li>
+        <hr></hr>
+      </div>
+     
     ));
     return (
-      <div className="row">
-        <div className="col-md-6">
-          <h3 className="text-center text-info">Experience</h3>
-          {expItems.length > 0 ? (
-            <ul className="list-group">{expItems}</ul>
-          ) : (
-            <p className="text-center">No Experience Listed</p>
-          )}
+      <div>
+        <div className="w3-container w3-card w3-white w3-margin-bottom">
+          <h2 className="w3-text-grey w3-padding-16"><i className="fas fa-info fa-fw w3-margin-right w3-xxlarge w3-text-grey"></i>My Bio</h2>
+            <p className="lead">
+              {!bio ? (
+                <span>No bio right now</span>
+              ) : (
+                <span>{bio}</span>
+              )}
+            </p>
+            <hr />
+            </div>
+        <div className="w3-container w3-card w3-white w3-margin-bottom">
+          <h2 className="w3-text-grey w3-padding-16"><i className="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-grey"></i>Work Experience</h2>
+            {expItems.length > 0 ? (
+                expItems
+              ) : (
+                <p style={{"color":"white"}} className="text-center">No Experience Listed</p>
+            )}
         </div>
-
-        <div className="col-md-6">
-          <h3 className="text-center text-info">Education</h3>
-          {eduItems.length > 0 ? (
-            <ul className="list-group">{eduItems}</ul>
-          ) : (
-            <p className="text-center">No Education Listed</p>
-          )}
+        <div className="w3-container w3-card w3-white">
+          <h2 className="w3-text-grey w3-padding-16"><i className="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-grey"></i>Education</h2>
+            {eduItems.length > 0 ? (
+                eduItems
+            ) : (
+              <p style={{"color":"white"}} className="text-center">No Education Listed</p>
+            )}  
         </div>
       </div>
     );

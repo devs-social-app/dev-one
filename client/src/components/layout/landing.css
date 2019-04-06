@@ -9,8 +9,10 @@ body {
   font-weight: 300;
   background: #181818;
   color: black;
+  margin:0;
   /* overflow: hidden; */
 }
+
 .fb-profile-text{
   color:white;
 }
@@ -61,6 +63,7 @@ h6 {
 
 #signin .logo {
   margin-bottom: 8vh;
+  color: white;
 }
 
 #signin .logo img {
@@ -221,10 +224,13 @@ h6 {
   #left {
     justify-content: start;
     margin-top: 4vh;
+    
   }
 
   #signin .logo {
-    margin-bottom: 2vh;
+    text-align: center;
+    margin: auto;
+    color: white;
   }
 
   #signin .text-input {

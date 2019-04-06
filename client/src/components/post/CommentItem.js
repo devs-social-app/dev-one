@@ -16,7 +16,7 @@ class CommentItem extends Component {
     
     const { comment, postId, auth } = this.props;
     return (
-      <div className="panel-body" style={{"border":"1px #eee solid","padding":"10px"}}>
+      <div className="panel-body" >
         <ul className="media-list" style={{"backgroundColor":"#eee","padding":"10px 10px 0 10px"}}>
           <li className="media">
             <a href={`/profile/${comment.user}`} className="pull-left">

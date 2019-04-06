@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { deleteExperience } from '../../actions/profileActions';
-
+import './d.css'
 class Experience extends Component {
   onDeleteClick(id) {
     this.props.deleteExperience(id);
@@ -14,10 +14,10 @@ class Experience extends Component {
       <tr key={exp._id}>
         <td>{exp.company}</td>
         <td>{exp.title}</td>
-        <td>
+        <td className="hide-s">
           <Moment format="YYYY/MM/DD">{exp.from}</Moment> -
           {exp.to === null ? (
-            ' Now'
+            ' Current'
           ) : (
             <Moment format="YYYY/MM/DD">{exp.to}</Moment>
           )}
@@ -33,14 +33,14 @@ class Experience extends Component {
       </tr>
     ));
     return (
-      <div style={{"background":"white"}}>
+      <div  style={{"background":"white"}}>
         <h4 className="mb-4">Experience Credentials</h4>
         <table className="table">
           <thead>
             <tr>
               <th>Company</th>
               <th>Title</th>
-              <th>Years</th>
+              <th className="hide-s">Years</th>
               <th />
             </tr>
             {experience}

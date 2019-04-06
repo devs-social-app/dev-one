@@ -52,38 +52,59 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your DevConnector account
-              </p>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Email Address"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                />
+      <div className="container">
+      <div className="row">
+        <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div className="card card-signin my-5">
+            <div className="card-body">
+              <h5 className="card-title text-center">Sign In</h5>
+              <form className="form-signin" noValidate onSubmit={this.onSubmit}>
+                <div className="form-label-group">
+                  <TextFieldGroup
+                    type="email"
+                    id="inputEmail"
+                    className="form-control"
+                    placeholder="Email address"
+                    required
+                    autoFocus
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    error={errors.email}
+                  />
+                  <label htmlFor="inputEmail">Email address</label>
+                </div>
 
-                <TextFieldGroup
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
+                <div className="form-label-group">
+                  <TextFieldGroup
+                    type="password"
+                    id="inputPassword"
+                    className="form-control"
+                    placeholder="Password"
+                    required
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    error={errors.password}
+                  />
+                  <label htmlFor="inputPassword">Password</label>
+                </div>
+
+                <button
+                  className="btn btn-lg btn-secondary btn-block text-uppercase"
+                  type="submit"
+                 
+                >
+                  Sign in
+                </button>
+                <hr className="my-4" />
               </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
+      
     );
   }
 }
