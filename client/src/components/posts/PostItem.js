@@ -52,14 +52,22 @@ class PostItem extends Component {
             
           </div>
           <div className="col-md-10 col-sm-10">
+
           <h1 className="text-left"><a href={`/profile/${post.user}`} style={{"textDecoration":"none"}}>{this.Capitalize(post.name)}</a></h1>
+
+          <h1 className="text-left">{this.Capitalize(post.name)}</h1>
+
           <small className="text-muted">
                 
                 {new TimeNaming().getDateNames(post.date)}
 
                 </small>
           <h2 style={{"background":"rgba(0, 0, 0, 0.2)","color":"white"}}>{post.title}</h2>
+
             <article>{post.text}</article>
+
+            <p className="lead">{post.text}</p>
+
             <Highlight {...defaultProps} theme={theme} code={post.code} language="jsx">
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <Pre className={className} style={style}>
